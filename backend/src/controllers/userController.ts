@@ -185,7 +185,11 @@ export const loginUser = async (req: Request, res: Response) => {
       }
       user = await User.findOne({ role, organizationName, registrationNumber });
 
-      if (!user || !(await bcrypt.compare(password, user.password))) {
+      if (
+        !user ||
+        !user.password ||
+        !(await bcrypt.compare(password, user.password))
+      ) {
         return res.status(401).json({ message: "Invalid credentials" });
       }
     }
@@ -201,7 +205,11 @@ export const loginUser = async (req: Request, res: Response) => {
       }
       user = await User.findOne({ role, companyName, taxId });
 
-      if (!user || !(await bcrypt.compare(password, user.password))) {
+      if (
+        !user ||
+        !user.password ||
+        !(await bcrypt.compare(password, user.password))
+      ) {
         return res.status(401).json({ message: "Invalid credentials" });
       }
     }
@@ -221,10 +229,9 @@ export const loginUser = async (req: Request, res: Response) => {
         return res.status(401).json({ message: "Validator not found" });
       }
 
-      const isCodeValid = await bcrypt.compare(
-        verificationCode,
-        user.verificationCode
-      );
+      const isCodeValid =
+        user.verificationCode &&
+        (await bcrypt.compare(verificationCode, user.verificationCode));
 
       if (!isCodeValid) {
         return res.status(401).json({ message: "Invalid verification code" });
@@ -237,9 +244,9 @@ export const loginUser = async (req: Request, res: Response) => {
     // Issue token
     // -----------------------
     const token = jwt.sign(
-      { userId: user._id, role: user.role },
-      (process.env.JWT_SECRET || "your-secret-key") as string,
-      { expiresIn: (process.env.JWT_EXPIRES_IN || "7d") as string }
+      { userId: user._id, role: user.role } as any,
+      (process.env.JWT_SECRET || "your-secret-key") as any,
+      { expiresIn: (process.env.JWT_EXPIRES_IN || "7d") as any } as any
     );
 
     const {
