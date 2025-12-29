@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Purple theme palette */
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 100%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 100%;
+
+    /* Primary Purple #6d3d84 */
+    --primary: 280 38% 38%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 280 38% 20%;
+    --primary-gradient-start: 280 38% 38%;
+    --primary-gradient-end: 280 45% 50%;
+
+    /* Secondary Dark */
+    --secondary: 280 25% 15%;
+    --secondary-foreground: 0 0% 100%;
+
+    /* Muted Dark */
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 65%;
+
+    /* Accent Purple Light */
+    --accent: 280 45% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Status Colors */
+    --success: 150 70% 40%;
+    --success-foreground: 0 0% 100%;
+    --success-light: 150 40% 20%;
+
+    --warning: 45 90% 55%;
+    --warning-foreground: 0 0% 0%;
+    --warning-light: 45 50% 25%;
+
+    --info: 200 80% 50%;
+    --info-foreground: 0 0% 100%;
+    --info-light: 200 50% 20%;
+
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 12%;
+    --ring: 280 38% 38%;
+
+    --radius: 1rem;
+
+    /* Web3 / Wallet specific */
+    --wallet-bg: 0 0% 5%;
+    --wallet-card: 0 0% 10%;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.3);
+    --shadow-md: 0 4px 12px -2px hsl(0 0% 0% / 0.4);
+    --shadow-lg: 0 10px 25px -5px hsl(0 0% 0% / 0.5);
+    --shadow-glow: 0 0 30px hsl(280 38% 38% / 0.3);
+
+    /* Phone frame */
+    --phone-shadow: 0 25px 80px -20px hsl(280 38% 20% / 0.5);
+  }
+
+  .dark {
+    --background: 210 25% 8%;
+    --foreground: 0 0% 98%;
+    --card: 210 25% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 210 25% 12%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 175 75% 45%;
+    --primary-foreground: 210 25% 8%;
+    --secondary: 210 25% 18%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 210 25% 20%;
+    --muted-foreground: 210 15% 60%;
+    --accent: 180 70% 40%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 25% 20%;
+    --input: 210 25% 20%;
+    --ring: 175 75% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-black text-foreground font-sans antialiased;
+    font-family: 'DM Sans', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  }
+
+  .gradient-ocean {
+    background: linear-gradient(180deg, hsl(280 38% 38%) 0%, hsl(280 45% 50%) 100%);
+  }
+
+  .gradient-header {
+    background: linear-gradient(135deg, hsl(280 38% 38%) 0%, hsl(280 45% 45%) 100%);
+  }
+
+  .text-gradient-ocean {
+    background: linear-gradient(135deg, hsl(280 38% 38%) 0%, hsl(280 45% 50%) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glass-card {
+    @apply bg-card/80 backdrop-blur-xl border border-border/50;
+  }
+
+  .phone-bezel {
+    background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
+  }
+
+  .status-chip-success {
+    @apply bg-success-light text-success px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+
+  .status-chip-warning {
+    @apply bg-warning-light text-warning-foreground px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+
+  .status-chip-info {
+    @apply bg-info-light text-info px-2.5 py-1 rounded-full text-xs font-medium;
+  }
+
+  .card-elevated {
+    @apply bg-card rounded-2xl shadow-md border border-border/30;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border border-border bg-input/50 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all;
+  }
+
+  .btn-primary {
+    @apply w-full py-4 rounded-xl font-semibold text-primary-foreground gradient-primary shadow-lg shadow-primary/25 active:scale-[0.98] transition-all;
+  }
+
+  .btn-secondary {
+    @apply w-full py-3.5 rounded-xl font-medium text-primary bg-primary-light border border-primary/20 active:scale-[0.98] transition-all;
+  }
+
+  .nav-item {
+    @apply flex flex-col items-center gap-1 py-2 px-4 transition-all;
+  }
+
+  .nav-item-active {
+    @apply text-primary;
+  }
+
+  .nav-item-inactive {
+    @apply text-muted-foreground;
+  }
+
+  /* Custom scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Animations */
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(280 38% 38% / 0.3);
+    }
+    50% {
+      box-shadow: 0 0 30px hsl(280 38% 38% / 0.5);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.3s ease-out;
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.2s ease-out;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+}
